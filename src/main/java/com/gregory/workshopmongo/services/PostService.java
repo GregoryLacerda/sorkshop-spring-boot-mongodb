@@ -1,8 +1,11 @@
 package com.gregory.workshopmongo.services;
 
+import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.gregory.workshopmongo.domain.Post;
 import com.gregory.workshopmongo.repositories.PostRepository;
 import com.gregory.workshopmongo.services.exception.ObjectNotFoundException;
@@ -17,6 +20,10 @@ public class PostService {
 	public Post findById(String id) {
 		Optional<Post> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+	
+	public List<Post> findByTitle(String text){
+		return repository.findByTitleContainingIgnoreCase(text);
 	}
 	
 }
