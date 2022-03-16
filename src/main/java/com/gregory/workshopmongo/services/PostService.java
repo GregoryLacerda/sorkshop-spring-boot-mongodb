@@ -1,5 +1,6 @@
 package com.gregory.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,13 @@ public class PostService {
 	
 	public List<Post> findByTitle(String text){
 		return repository.searchTitle(text);
+	}
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate){
+		//para verificar o post até 24h depois daquele, seria <= as 00h do proximo dia. procedimento para adicionar as 24h
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+		return repository.fullSearch(text, minDate, maxDate);
+		
 	}
 	
 }
